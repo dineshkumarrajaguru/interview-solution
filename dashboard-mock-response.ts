@@ -12,11 +12,13 @@ interface FullDataResponse {
   dataSets: DatasetResponse[];
 }
 
+interface ElementPosition {};
 interface ElementGroup {
   name: string;
   label: string;
   type: ElementType;
-  position: ElementPosition;
+  position?: ElementPosition;
+  width: number;
   elements: Element[];
 }
 
@@ -281,13 +283,13 @@ const newLayoutResponse: LayoutResponse = {
       name: 'summary',
       label: 'Summary',
       type: 'DATA_SET',
-      width: 12
+      width: 12,
       elements: [
         {
           name: 'summary',
           displayName: 'Summary',
           type: 'DATA_SET',
-          width: 12
+          width: 12,
           fields: [
             { name: 'channel' },
             { name: 'segment' },
