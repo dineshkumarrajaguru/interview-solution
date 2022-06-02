@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "./app/styling/core.scss";
+
+@font-face {
+  font-family: "Helvetica";
+  src: local("Helvetica"),
+    url(./assets/fonts/Helvetica/helvetica-neue-bold.ttf) format("truetype");
+}
+
+* {
+  font-family: "Helvetica", sans-serif;
+}
