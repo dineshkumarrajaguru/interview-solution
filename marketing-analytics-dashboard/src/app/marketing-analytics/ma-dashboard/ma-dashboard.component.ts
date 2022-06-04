@@ -7,10 +7,13 @@ import { MarketingAnalyticsService } from '../services/marketing-analytics.servi
 })
 export class MaDashboardComponent implements OnInit {
 
-  constructor(private marketingAnalyticsService: MarketingAnalyticsService) { }
+  public formattedDashboardData;
+
+  constructor(private marketingAnalyticsService: MarketingAnalyticsService) {
+    this.formattedDashboardData = this.marketingAnalyticsService.getProcessedAnalyticsData();
+  }
 
   ngOnInit(): void {
-    this.marketingAnalyticsService.processAnalyticsLayoutAndData();
   }
 
 }

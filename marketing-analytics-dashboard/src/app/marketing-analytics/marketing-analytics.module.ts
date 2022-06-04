@@ -4,11 +4,15 @@ import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '
 import { MarketingAnalyticsRoutingModule } from './marketing-analytics-routing.module';
 import { MaDashboardComponent } from './ma-dashboard/ma-dashboard.component';
 import { MarketingAnalyticsService } from './services/marketing-analytics.service';
+import { MadLayoutListComponent } from './mad-layout-list/mad-layout-list.component';
+import { MadDataPointItemComponent } from './mad-data-point-item/mad-data-point-item.component';
 
 
 @NgModule({
   declarations: [
-    MaDashboardComponent
+    MaDashboardComponent,
+    MadLayoutListComponent,
+    MadDataPointItemComponent
   ],
   imports: [
     CommonModule,
