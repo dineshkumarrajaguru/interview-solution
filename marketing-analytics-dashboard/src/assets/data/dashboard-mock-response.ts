@@ -7,7 +7,7 @@ interface DatasetResponse {
   data: DataResponse[];
 }
 
-interface FullDataResponse {
+export interface FullDataResponse {
   dataPoints: DataResponse;
   dataSets: DatasetResponse[];
 }
@@ -43,7 +43,7 @@ interface FieldDefinitions {
 type Format = 'datetime' | 'currency' | 'percent' | 'number' | 'none';
 type Type = 'string' | 'double' | 'datetime';
 
-interface FieldDefinition {
+export interface FieldDefinition {
   label: string;
   format: Format;
   type: Type;
@@ -51,7 +51,7 @@ interface FieldDefinition {
   aggFn: 'none' | 'sum' | 'average';
 }
 
-interface LayoutResponse {
+export interface LayoutResponse {
   displayName: string;
   fieldDefinitions: FieldDefinitions;
   layout: ElementGroup[];
