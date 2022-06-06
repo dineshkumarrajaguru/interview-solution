@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from 'src/app/core/services/header.service';
 import { MarketingAnalyticsService } from '../services/marketing-analytics.service';
 
 @Component({
@@ -7,13 +8,19 @@ import { MarketingAnalyticsService } from '../services/marketing-analytics.servi
 })
 export class MaDashboardComponent implements OnInit {
 
-  public formattedDashboardData;
 
-  constructor(private marketingAnalyticsService: MarketingAnalyticsService) {
-    this.formattedDashboardData = this.marketingAnalyticsService.getProcessedAnalyticsData();
+  constructor(
+    private marketingAnalyticsService: MarketingAnalyticsService,
+    private headerService: HeaderService) {
   }
 
   ngOnInit(): void {
+    this.setDisplayName();
+  }
+
+  private setDisplayName() {
+    const DISPLAY_NAME = this.marketingAnalyticsService.getDisplayName();
+    this.headerService.setHeaderTitle(DISPLAY_NAME);
   }
 
 }

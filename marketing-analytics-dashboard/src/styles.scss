@@ -1,13 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "./app/styling/core.scss";
+@import '~ag-grid-community/dist/styles/ag-grid.css';
+@import "~ag-grid-community/dist/styles/ag-theme-material.css";
 
 @font-face {
   font-family: "Helvetica";
   src: local("Helvetica"),
-    url(./assets/fonts/Helvetica/helvetica-neue-bold.ttf) format("truetype");
+    url(./assets/fonts/Helvetica/helvetica-neue-regular.ttf) format("truetype");
 }
 
 * {
   font-family: "Helvetica", sans-serif;
+}
+
+// Style overriding
+.border-bottom {
+  border-bottom: 1px solid $grey-2 !important;
+}
+
+.ag-theme-material {
+  .ag-row {
+    font-size: 10px;
+    font-weight: 400;
+    color: $grey-1;
+    font-style: normal;
+    border-bottom: unset;
+  }
+
+  .ag-row-odd {
+    background-color: $grey-3;
+  }
+  .ag-header{
+    border-top: unset;
+    border-bottom: 1px solid $grey-1;
+  }
+  .ag-row-footer{
+    border-top: 1px solid $grey-1;
+  }
+  .ag-header-cell {
+    color: $theme-color;
+    font-size: 14px;
+    font-weight: 700;
+  }
 }

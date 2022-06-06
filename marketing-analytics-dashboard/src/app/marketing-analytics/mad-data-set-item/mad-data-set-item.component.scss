@@ -1,0 +1,17 @@
+@import "../../styling/core";
+
+.data-set-container {
+  height: auto;
+  width: 100%;
+
+  .datset-grid {
+    height: 700px;
+    width: 100%;
+  }
+
+  .layout-title {
+    font-size: 18px;
+    font-weight: 400;
+    color: $grey-1;
+  }
+}

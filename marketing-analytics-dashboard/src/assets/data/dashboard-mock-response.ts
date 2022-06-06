@@ -192,7 +192,7 @@ const newLayoutResponse: LayoutResponse = {
     },
     percOrdersI: {
       label: '% Orders (i)',
-      format: 'number',
+      format: 'percent', // Updated this to match the purpose
       type: 'double',
       digitsInfo: '1.0-2',
       aggFn: 'average'

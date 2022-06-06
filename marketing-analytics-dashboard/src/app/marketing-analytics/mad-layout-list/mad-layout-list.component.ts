@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormattedDashboardData } from '../services/marketing-analytics.service';
+import { LayoutResponse } from 'src/assets/data/dashboard-mock-response';
+import { FormattedDashboardData, MarketingAnalyticsService } from '../services/marketing-analytics.service';
 
 @Component({
   selector: 'app-mad-layout-list',
@@ -11,8 +12,13 @@ export class MadLayoutListComponent implements OnInit {
   @Input()
   public layoutListData!: FormattedDashboardData;
 
-  constructor() {
-   }
+  public layoutList: LayoutResponse;
+  
+  constructor(
+    private marketingAnalyticsService: MarketingAnalyticsService
+  ) {
+    this.layoutList = this.marketingAnalyticsService.fetchAnalyticsLayout();
+  }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,6 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { ColDef } from 'ag-grid-community';
 import { backendDataResponse, FieldDefinition, FullDataResponse, LayoutResponse, newLayoutResponse } from 'src/assets/data/dashboard-mock-response';
 
 
@@ -36,7 +37,7 @@ export class MarketingAnalyticsService {
     private decimalPipe: DecimalPipe
   ) { }
 
-  private fetchAnalyticsLayout(): LayoutResponse {
+  public fetchAnalyticsLayout(): LayoutResponse {
     return newLayoutResponse;
   }
 
@@ -44,27 +45,50 @@ export class MarketingAnalyticsService {
     return backendDataResponse;
   }
 
-  public getProcessedAnalyticsData() {
-    this.layoutData = this.fetchAnalyticsLayout();
-    this.analyticsData = this.fetchAnalyticsData();
+  public getDisplayName(): string {
+    this.layoutData = this.layoutData ?? this.fetchAnalyticsLayout();
+    return this.layoutData.displayName;
+  }
 
-    this.layoutData.layout.forEach((layout) => {
-      if (layout.type === 'DATA_POINT') {
-        layout.elements.map((element: any) => {
-          element.value = this.extractDataPoint(element.name);
-          element.label = this.getFieldDefinitionValue(element.name, 'label');
-        });
-      }
+
+  public processDataPointLayout(dataPointLayoutDetail: any) {
+    dataPointLayoutDetail.elements.forEach((element: any) => {
+      element.value = this.extractDataPoint(element.name);
+      element.label = this.getFieldDefinitionValue(element.name, 'label');
+    });
+  }
+
+  public processDataSetLayout(dataSetLayoutDetail: any) {
+    const COLUMN_DEFS: ColDef[] = [];
+    let dataList: any = [];
+    dataSetLayoutDetail.elements.forEach((element: any) => {
+      dataList = this.extractDataSet(element.name) ?? [];
+      element.fields.forEach((field: any) => {
+        const SELECTED_FIELD_DEFINITION = this.getFieldDefinition(field.name);
+        const COLUMN_DEF: ColDef = {
+          field: field.name, headerName: SELECTED_FIELD_DEFINITION.label, aggFunc: this.getAggregateFunction(SELECTED_FIELD_DEFINITION.aggFn)
+        };
+        if (SELECTED_FIELD_DEFINITION.format === 'currency') {
+          COLUMN_DEF.valueFormatter = (data) => this.currencyPipe.transform(data.value, 'USD', 'symbol', SELECTED_FIELD_DEFINITION.digitsInfo) || '';
+        } else if (SELECTED_FIELD_DEFINITION.format === 'percent') {
+          COLUMN_DEF.valueFormatter = (data) => this.percentPipe.transform(+data.value, SELECTED_FIELD_DEFINITION.digitsInfo) || '';
+        } else if (SELECTED_FIELD_DEFINITION.format === 'number') {
+          COLUMN_DEF.valueFormatter = (data) => this.decimalPipe.transform(+data.value, SELECTED_FIELD_DEFINITION.digitsInfo) || '';
+        }
+        COLUMN_DEFS.push(COLUMN_DEF);
+      });
     });
 
-    const PROCESSED_ANALYTICS_DATA: FormattedDashboardData = {
-      displayName: this.layoutData.displayName,
-      layouts: this.layoutData.layout as Layout[]
-    }
-    return PROCESSED_ANALYTICS_DATA;
+    return { columnDef: COLUMN_DEFS, rowDef: dataList };
+  }
+
+  private extractDataSet(elementName: string) {
+    this.analyticsData = this.analyticsData ?? this.fetchAnalyticsData();
+    return this.analyticsData.dataSets.find(dataSet => dataSet.name === elementName)?.data;
   }
 
   private extractDataPoint(elementName: string): string | number {
+    this.analyticsData = this.analyticsData ?? this.fetchAnalyticsData();
     const DATA_POINTS = this.analyticsData.dataPoints ?? {};
     const FORMATTED_DATA_POINT = this.formatDataPoint(elementName, DATA_POINTS[elementName]);
     return FORMATTED_DATA_POINT ?? '-';
@@ -91,10 +115,11 @@ export class MarketingAnalyticsService {
         formattedData = dataPoint;
         break;
     }
-    return formattedData;
+    return formattedData || dataPoint;
   }
 
   private getFieldDefinition(elementName: string): FieldDefinition {
+    this.layoutData = this.layoutData ?? this.fetchAnalyticsLayout();
     const FIELD_DEFINITIONS = this.layoutData.fieldDefinitions || {};
     return FIELD_DEFINITIONS[elementName];
   }
@@ -102,5 +127,18 @@ export class MarketingAnalyticsService {
   private getFieldDefinitionValue(elementName: string, fieldSeekingFor: string) {
     const SELECTED_FIELD_DEFINITION: FieldDefinition = this.getFieldDefinition(elementName);
     return SELECTED_FIELD_DEFINITION[fieldSeekingFor as keyof FieldDefinition] ?? '';
+  }
+
+  private getAggregateFunction(aggregateFunction: string): string | null {
+    let agGridAggregateFunction: string | null = null;
+    switch (aggregateFunction) {
+      case 'sum':
+        agGridAggregateFunction = 'sum';
+        break;
+      case 'average':
+        agGridAggregateFunction = 'avg';
+        break;
+    }
+    return agGridAggregateFunction;
   }
 }
