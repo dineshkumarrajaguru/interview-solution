@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { ElementGroup } from 'src/assets/data/dashboard-mock-response';
 
 import { MarketingAnalyticsService } from '../services/marketing-analytics.service';
 
@@ -12,8 +13,7 @@ import { MarketingAnalyticsService } from '../services/marketing-analytics.servi
 export class MadDataSetItemComponent implements OnInit, OnChanges {
 
   @Input()
-  layoutDetail!: any;
-  // TBD: Include a type for this
+  layoutDetail!: ElementGroup;
 
   public columnDefs: ColDef[] = [];
 

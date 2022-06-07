@@ -1,15 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
+import { RouterModule } from '@angular/router';
 
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+import { HeaderComponent } from './components/header/header.component';
+import { MenuComponent } from './menu/menu.component';
 
 
 @NgModule({
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    MenuComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
+    BsDropdownModule,
+    FontAwesomeModule
   ],
   exports: [HeaderComponent]
 })

@@ -1,4 +1,4 @@
-interface DataResponse {
+export interface DataResponse {
   [index: string]: string | number;
 }
 
@@ -13,7 +13,7 @@ export interface FullDataResponse {
 }
 
 interface ElementPosition {};
-interface ElementGroup {
+export interface ElementGroup {
   name: string;
   label: string;
   type: ElementType;
@@ -24,15 +24,17 @@ interface ElementGroup {
 
 type ElementType = 'DATA_POINT' | 'DATA_SET';
 
-interface Element {
+export interface Element {
   name: string;
+  label?: string;
+  value?: string | number;
   type: ElementType;
   displayName?: string;
   width: number;
   fields?: DatasetFields[];
 }
 
-interface DatasetFields {
+export interface DatasetFields {
   name: string;
 }
 

@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Layout, MarketingAnalyticsService } from '../services/marketing-analytics.service';
+import { ElementGroup } from 'src/assets/data/dashboard-mock-response';
+import {  MarketingAnalyticsService } from '../services/marketing-analytics.service';
 
 @Component({
   selector: 'app-mad-data-point-item',
@@ -9,7 +10,7 @@ import { Layout, MarketingAnalyticsService } from '../services/marketing-analyti
 export class MadDataPointItemComponent implements OnChanges {
 
   @Input()
-  layoutDetail!: any; // TBD: Include proper type
+  layoutDetail!: ElementGroup;
 
   constructor(private marketingAnalyticsService: MarketingAnalyticsService) {
 

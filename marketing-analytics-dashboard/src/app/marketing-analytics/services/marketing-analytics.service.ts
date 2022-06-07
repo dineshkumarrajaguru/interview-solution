@@ -1,28 +1,8 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, PercentPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
-import { backendDataResponse, FieldDefinition, FullDataResponse, LayoutResponse, newLayoutResponse } from 'src/assets/data/dashboard-mock-response';
+import { backendDataResponse, ElementGroup, FieldDefinition, FullDataResponse, LayoutResponse, newLayoutResponse, Element, DatasetFields, DataResponse } from 'src/assets/data/dashboard-mock-response';
 
-
-export interface FormattedDashboardData {
-  displayName: string;
-  layouts: Layout[]
-}
-export interface Layout {
-  name: string;
-  type: string;
-  label: string;
-  width: number;
-  elements: Array<Element>;
-}
-
-interface Element {
-  name: string;
-  type: string;
-  label: string;
-  width: number;
-  value?: string | number;
-}
 
 @Injectable()
 export class MarketingAnalyticsService {
@@ -51,22 +31,22 @@ export class MarketingAnalyticsService {
   }
 
 
-  public processDataPointLayout(dataPointLayoutDetail: any) {
-    dataPointLayoutDetail.elements.forEach((element: any) => {
+  public processDataPointLayout(dataPointLayoutDetail: ElementGroup) {
+    dataPointLayoutDetail.elements.forEach((element: Element) => {
       element.value = this.extractDataPoint(element.name);
       element.label = this.getFieldDefinitionValue(element.name, 'label');
     });
   }
 
-  public processDataSetLayout(dataSetLayoutDetail: any) {
+  public processDataSetLayout(dataSetLayoutDetail: ElementGroup) {
     const COLUMN_DEFS: ColDef[] = [];
-    let dataList: any = [];
-    dataSetLayoutDetail.elements.forEach((element: any) => {
+    let dataList: DataResponse[] = [];
+    dataSetLayoutDetail.elements.forEach((element: Element) => {
       dataList = this.extractDataSet(element.name) ?? [];
-      element.fields.forEach((field: any) => {
+      element.fields?.forEach((field: DatasetFields) => {
         const SELECTED_FIELD_DEFINITION = this.getFieldDefinition(field.name);
         const COLUMN_DEF: ColDef = {
-          field: field.name, headerName: SELECTED_FIELD_DEFINITION.label, aggFunc: this.getAggregateFunction(SELECTED_FIELD_DEFINITION.aggFn)
+          field: field.name, headerName: SELECTED_FIELD_DEFINITION.label, aggFunc: this.getAggregateFunction(SELECTED_FIELD_DEFINITION.aggFn), tooltipField: field.name
         };
         if (SELECTED_FIELD_DEFINITION.format === 'currency') {
           COLUMN_DEF.valueFormatter = (data) => this.currencyPipe.transform(data.value, 'USD', 'symbol', SELECTED_FIELD_DEFINITION.digitsInfo) || '';
