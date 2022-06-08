@@ -18,6 +18,9 @@ export class MaDashboardComponent implements OnInit {
     this.setDisplayName();
   }
 
+  /**
+   * Extract display name from Layout Response and set the header title
+   */
   private setDisplayName() {
     const DISPLAY_NAME = this.marketingAnalyticsService.getDisplayName();
     this.headerService.setHeaderTitle(DISPLAY_NAME);

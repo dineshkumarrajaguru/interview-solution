@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HeaderService } from '../../services/header.service';
 
@@ -7,7 +7,7 @@ import { HeaderService } from '../../services/header.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnDestroy {
 
   public title!: string;
   public headerTitleListener!: Subscription;
@@ -18,11 +18,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscribeToHeaderTitleChange();
   }
 
-  ngOnInit(): void {
-  }
-
+  /**
+   * Add listener to Header Title change
+   */
   private subscribeToHeaderTitleChange() {
-    this.headerTitleListener = this.headerService.headerTitleSubject.subscribe(title => this.title = title);
+    this.headerTitleListener = this.headerService.headerTitleSubject$.subscribe(title => this.title = title);
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MarketingAnalyticsModule } from '../marketing-analytics.module';
+import { MarketingAnalyticsService } from '../services/marketing-analytics.service';
 
 import { MadDataPointItemComponent } from './mad-data-point-item.component';
 
@@ -8,9 +10,11 @@ describe('MadDataPointItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MadDataPointItemComponent ]
+      declarations: [MadDataPointItemComponent],
+      imports: [MarketingAnalyticsModule],
+      providers: [MarketingAnalyticsService]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

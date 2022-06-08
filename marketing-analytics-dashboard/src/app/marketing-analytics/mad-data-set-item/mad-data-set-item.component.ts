@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { ElementGroup } from 'src/assets/data/dashboard-mock-response';
@@ -10,7 +10,7 @@ import { MarketingAnalyticsService } from '../services/marketing-analytics.servi
   templateUrl: './mad-data-set-item.component.html',
   styleUrls: ['./mad-data-set-item.component.scss']
 })
-export class MadDataSetItemComponent implements OnInit, OnChanges {
+export class MadDataSetItemComponent implements OnChanges {
 
   @Input()
   layoutDetail!: ElementGroup;
@@ -33,9 +33,6 @@ export class MadDataSetItemComponent implements OnInit, OnChanges {
       resizable: true,
       suppressMenu: true,
     };
-  }
-
-  ngOnInit(): void {
   }
 
   onGridReady(params: GridReadyEvent) {
