@@ -20,6 +20,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "ag-grid-enterprise"
+            ],
             "outputPath": "dist/marketing-analytics-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
