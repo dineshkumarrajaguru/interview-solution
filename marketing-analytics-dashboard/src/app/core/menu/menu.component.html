@@ -1,5 +1,5 @@
 <div class="btn-group menu-container" dropdown>
-  <button type="button" class="btn btn-outline-light">
+  <button type="button" class="btn btn-outline-light" *ngIf="selectedMenu">
     <fa-icon [icon]="selectedMenu?.icon"></fa-icon>
     {{selectedMenu?.label}}
 </button>
