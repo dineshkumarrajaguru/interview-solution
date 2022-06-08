@@ -1,3 +1,10 @@
+## Steps to run
+1. git clone https://github.com/dineshkumarrajaguru/interview-solution.git
+2. cd interview-solution/marketing-analytics-dashboard
+3. npm i
+4. ng s -o
+   
+
 # Coding Challenge: Design a Dashboard
 
 [Use this Mockup file](https://www.figma.com/file/81BjV4wM7ULNuep6siNKBm/Interview-Challenge%3A-Design-a-Dashboard?node-id=0%3A1)
