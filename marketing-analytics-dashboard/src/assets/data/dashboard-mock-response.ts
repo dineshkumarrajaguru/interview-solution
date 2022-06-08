@@ -1,4 +1,4 @@
-interface DataResponse {
+export interface DataResponse {
   [index: string]: string | number;
 }
 
@@ -7,30 +7,34 @@ interface DatasetResponse {
   data: DataResponse[];
 }
 
-interface FullDataResponse {
+export interface FullDataResponse {
   dataPoints: DataResponse;
   dataSets: DatasetResponse[];
 }
 
-interface ElementGroup {
+interface ElementPosition {};
+export interface ElementGroup {
   name: string;
   label: string;
   type: ElementType;
-  position: ElementPosition;
+  position?: ElementPosition;
+  width: number;
   elements: Element[];
 }
 
 type ElementType = 'DATA_POINT' | 'DATA_SET';
 
-interface Element {
+export interface Element {
   name: string;
+  label?: string;
+  value?: string | number;
   type: ElementType;
   displayName?: string;
   width: number;
   fields?: DatasetFields[];
 }
 
-interface DatasetFields {
+export interface DatasetFields {
   name: string;
 }
 
@@ -41,7 +45,7 @@ interface FieldDefinitions {
 type Format = 'datetime' | 'currency' | 'percent' | 'number' | 'none';
 type Type = 'string' | 'double' | 'datetime';
 
-interface FieldDefinition {
+export interface FieldDefinition {
   label: string;
   format: Format;
   type: Type;
@@ -49,7 +53,7 @@ interface FieldDefinition {
   aggFn: 'none' | 'sum' | 'average';
 }
 
-interface LayoutResponse {
+export interface LayoutResponse {
   displayName: string;
   fieldDefinitions: FieldDefinitions;
   layout: ElementGroup[];
@@ -190,7 +194,7 @@ const newLayoutResponse: LayoutResponse = {
     },
     percOrdersI: {
       label: '% Orders (i)',
-      format: 'number',
+      format: 'percent', // Updated this to match the purpose
       type: 'double',
       digitsInfo: '1.0-2',
       aggFn: 'average'
@@ -281,13 +285,13 @@ const newLayoutResponse: LayoutResponse = {
       name: 'summary',
       label: 'Summary',
       type: 'DATA_SET',
-      width: 12
+      width: 12,
       elements: [
         {
           name: 'summary',
           displayName: 'Summary',
           type: 'DATA_SET',
-          width: 12
+          width: 12,
           fields: [
             { name: 'channel' },
             { name: 'segment' },

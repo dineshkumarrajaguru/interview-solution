@@ -1,0 +1,15 @@
+<article class="my-3">
+    <div class="border-bottom">
+        <span class="layout-title">{{layoutDetail?.label}}</span>
+    </div>
+    <div class="row mt-3">
+        <div class="col-{{element.width}}" *ngFor="let element of layoutDetail?.elements">
+            <div class="data-label">
+                {{element.label}}
+            </div>
+            <div class="data-value">
+                {{element.value}}
+            </div>
+        </div>
+    </div>
+</article>

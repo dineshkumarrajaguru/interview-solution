@@ -1,0 +1,15 @@
+<!-- <div class="row">
+    <div *ngFor="let layout of layoutListData.layouts" class="col-{{layout.width}}">
+        <app-mad-data-point-item [layoutDetail]="layout" *ngIf="layout.type === 'DATA_POINT';else dataSet;"></app-mad-data-point-item>
+        <ng-template #dataSet>
+            <app-mad-data-set-item></app-mad-data-set-item>
+        </ng-template>
+    </div>
+</div> -->
+
+<div class="row">
+    <div *ngFor="let layout of layoutList.layout" class="col-{{layout.width}}">
+        <app-mad-data-point-item [layoutDetail]="layout" *ngIf="layout.type === 'DATA_POINT'"></app-mad-data-point-item>
+        <app-mad-data-set-item  [layoutDetail]="layout" *ngIf="layout.type === 'DATA_SET'"></app-mad-data-set-item>
+    </div>
+</div>

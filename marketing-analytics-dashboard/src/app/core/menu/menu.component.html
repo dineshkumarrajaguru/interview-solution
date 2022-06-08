@@ -1,0 +1,28 @@
+<div class="btn-group menu-container" dropdown>
+  <button type="button" class="btn btn-outline-light">
+    <fa-icon [icon]="selectedMenu?.icon"></fa-icon>
+    {{selectedMenu?.label}}
+</button>
+  <button
+    id="button-split"
+    type="button"
+    dropdownToggle
+    class="btn btn-outline-light dropdown-toggle dropdown-toggle-split"
+    aria-controls="dropdown-split">
+    <span class="caret"></span>
+    <span class="sr-only visually-hidden">menu button</span>
+  </button>
+  <ul
+    id="dropdown-split"
+    *dropdownMenu
+    class="dropdown-menu dropdown-menu-right"
+    role="menu"
+    aria-labelledby="button-split">
+    <li role="menuitem" *ngFor="let menuItem of menuItems">
+      <a class="dropdown-item" [routerLink]="menuItem.link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+      <fa-icon [icon]="menuItem.icon"></fa-icon>
+      {{menuItem.label}}
+    </a>
+    </li>
+  </ul>
+</div>
