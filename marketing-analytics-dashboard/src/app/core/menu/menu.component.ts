@@ -22,7 +22,7 @@ export class MenuComponent {
     label: 'Reports'
   }];
 
-  public selectedMenu!: MenuItem | undefined;
+  public selectedMenu!: any;
 
   constructor(
     private router: Router

@@ -105,9 +105,21 @@
             "scripts": [],
             "codeCoverage": true
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "marketing-analytics-dashboard"
+  "defaultProject": "marketing-analytics-dashboard",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

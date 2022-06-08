@@ -1,6 +1,6 @@
 <div class="btn-group menu-container" dropdown>
   <button type="button" class="btn btn-outline-light">
-    <fa-icon [icon]="selectedMenu?.icon" *ngIf="selectedMenu?.icon"></fa-icon>
+    <fa-icon [icon]="selectedMenu?.icon"></fa-icon>
     {{selectedMenu?.label}}
 </button>
   <button
@@ -19,7 +19,10 @@
     role="menu"
     aria-labelledby="button-split">
     <li role="menuitem" *ngFor="let menuItem of menuItems">
-        <a class="dropdown-item" [routerLink]="menuItem.link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">{{menuItem.label}}</a>
+      <a class="dropdown-item" [routerLink]="menuItem.link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+      <fa-icon [icon]="menuItem.icon"></fa-icon>
+      {{menuItem.label}}
+    </a>
     </li>
   </ul>
 </div>

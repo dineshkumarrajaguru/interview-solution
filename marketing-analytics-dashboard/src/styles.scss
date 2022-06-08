@@ -4,6 +4,13 @@
 @import '~ag-grid-community/dist/styles/ag-grid.css';
 @import "~ag-grid-community/dist/styles/ag-theme-material.css";
 
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
 @font-face {
   font-family: "Helvetica";
   src: local("Helvetica"),
@@ -45,8 +52,3 @@
   }
 }
 
-/* Importing Bootstrap SCSS file. */
-@import "~bootstrap/scss/bootstrap";
-
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
